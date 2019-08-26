@@ -1,16 +1,25 @@
-#ifndef ASS2_SHAPES_H
-#define ASS2_SHAPES_H
-#include <iostream>
+//
+// Created by caleb on 26/8/19.
+//
 
-class screen
-{
+#ifndef PROJECT3_SCREEN_H
+#define PROJECT3_SCREEN_H
+
+#include <iostream>
+#include <cmath>
+#include <cstdlib>
+
+/* A class to display 2d graphics in text mode */
+/* The screen is a square (-dmin,-dmin) to (dmax,dmax) */
+/* The typical screen size is (-20, -20) to (20,20) */
+class Screen {
 public:
-   screen(); 												// default constructor
-    screen(screen const & that);							// copy constructor
-    screen(screen && that) noexcept;						// move constructor
-    screen & operator = (screen const & that); 				// copy assignment
-    screen & operator = (screen && that) noexcept;			// move assignment
-    ~screen();												// destructor
+    Screen(); 												// default constructor
+    Screen(Screen const & that);							// copy constructor
+    Screen(Screen && that) noexcept;						// move constructor
+    Screen & operator = (Screen const & that); 				// copy assignment
+    Screen & operator = (Screen && that) noexcept;			// move assignment
+    ~Screen();												// destructor
 
     int dmin() const;										// getter for dmin
     int dmax() const;										// getter for dmax
@@ -27,13 +36,17 @@ public:
     void line(int x, int y, int xp, int yp, char s);		// plot a line from (x,y) to (xp, yp) using symbol s
 
 private:
+
     // low lovel function to plot a single point  since y : x ratio is not 1, x is multiplied if r is true
     void plot(double x, double y, char s);			// plot a point
+
     int const dim = 20;								// default dimension
     double const ratio = 2.23;						// aspect ratio
     double const pi = acos(-1);						// pi value
+
     int mWidth, mHeight;							// width and height
     char ** mBoard;									// 2d screen board
 };
 
-#endif //ASS2_SHAPES_H
+
+#endif //PROJECT3_SCREEN_H

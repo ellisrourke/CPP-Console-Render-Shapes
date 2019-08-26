@@ -1,18 +1,11 @@
-/* Written by M A H Newton on 25.08.2019 */
+//
+// Created by caleb on 26/8/19.
+//
 
-
-#include <cmath>
-#include <cstdlib>
 #include "screen.h"
 
-using namespace std;
-
-/* A class to display 2d graphics in text mode */
-/* The screen is a square (-dmin,-dmin) to (dmax,dmax) */
-/* The typical screen size is (-20, -20) to (20,20) */
-
 // default constructor
-screen::screen() : mWidth(ratio * dim * 2 + 1), mHeight(dim * 2 + 1)
+Screen::Screen() : mWidth(ratio * dim * 2 + 1), mHeight(dim * 2 + 1)
 {
     mBoard = new char * [mHeight];
     for(int j = 0; j < mHeight; ++j)
@@ -20,7 +13,7 @@ screen::screen() : mWidth(ratio * dim * 2 + 1), mHeight(dim * 2 + 1)
 }
 
 // destructor
-screen::~screen()
+Screen::~Screen()
 {
     for(int j = 0; j < mHeight; ++j)
         delete [] mBoard[j];
@@ -28,7 +21,7 @@ screen::~screen()
 }
 
 // copy constructor
-screen::screen(screen const & that) : mWidth(that.mWidth), mHeight(that.mHeight)
+Screen::Screen(Screen const & that) : mWidth(that.mWidth), mHeight(that.mHeight)
 {
     mBoard = new char * [mHeight];
     for(int j = 0; j < mHeight; ++j)
@@ -40,8 +33,8 @@ screen::screen(screen const & that) : mWidth(that.mWidth), mHeight(that.mHeight)
 }
 
 // move constructor
-screen::screen(screen && that) noexcept :
-        mWidth(move(that.mWidth)), mHeight(move(that.mHeight)), mBoard(move(that.mBoard))
+Screen::Screen(Screen && that) noexcept :
+        mWidth(std::move(that.mWidth)), mHeight(std::move(that.mHeight)), mBoard(std::move(that.mBoard))
 {
     that.mBoard = nullptr;
     that.mWidth = 0;
@@ -49,7 +42,7 @@ screen::screen(screen && that) noexcept :
 }
 
 // copy assignment
-screen & screen::operator = (screen const & that)
+Screen & Screen::operator = (Screen const & that)
 {
     if (this != &that) return *this;
 
@@ -73,11 +66,11 @@ screen & screen::operator = (screen const & that)
 }
 
 // move constructor
-screen & screen::operator = (screen && that) noexcept
+Screen & Screen::operator = (Screen && that) noexcept
 {
-    mWidth = move(that.mWidth);
-    mHeight = move(that.mHeight);
-    mBoard = move(that.mBoard);
+    mWidth = std::move(that.mWidth);
+    mHeight = std::move(that.mHeight);
+    mBoard = std::move(that.mBoard);
 
     that.mBoard = nullptr;
     that.mWidth = 0;
@@ -87,7 +80,7 @@ screen & screen::operator = (screen && that) noexcept
 }
 
 // plot a point
-void screen::plot(double x, double y, char s)
+void Screen::plot(double x, double y, char s)
 {
     int yy = static_cast<int>(round(-y + mHeight / 2) );
     int xx = static_cast<int>(round(ratio * x + mWidth / 2 + ratio / 2 ));
@@ -95,33 +88,33 @@ void screen::plot(double x, double y, char s)
 }
 
 // getter for dmax
-int screen::dmax() const
+int Screen::dmax() const
 {
     return dim;
 }
 
 // getter for dmin
-int screen::dmin() const
+int Screen::dmin() const
 {
     return - dim;
 }
 
 // display screen
-void screen::display() const
+void Screen::display() const
 {
     for(int j = 0; j < mHeight; ++j)
     {
         for(int i = 0; i < mWidth; ++i)
             if (mBoard[j][i])
-                cout << mBoard[j][i];
+                std::cout << mBoard[j][i];
             else
-                cout << ' ';
-        cout << endl;
+                std::cout << ' ';
+        std::cout << std::endl;
     }
 }
 
 // clear the screen
-void screen::clear()
+void Screen::clear()
 {
     for(int j = 0; j < mHeight; ++j)
         for(int i = 0; i < mWidth; ++i)
@@ -129,7 +122,7 @@ void screen::clear()
 }
 
 // show the axes using symbol s
-void screen::axes(char s)
+void Screen::axes(char s)
 {
     // plot x axis
     for(int x = dmin(); x <= dmax(); ++x)
@@ -140,13 +133,13 @@ void screen::axes(char s)
 }
 
 // plot a point at (x,y) with symbol s
-void screen::point(int x, int y, char s)
+void Screen::point(int x, int y, char s)
 {
     plot(static_cast<double>(x), static_cast<double>(y), s);
 }
 
 // plot an ellipse using center (xc, yc), radii rx and ry, and symbol s
-void screen::ellipse(int xc, int yc, int rx, int ry, char s)
+void Screen::ellipse(int xc, int yc, int rx, int ry, char s)
 {
     double dx, dy, d1, d2, x, y;
     x = 0;
@@ -218,7 +211,7 @@ void screen::ellipse(int xc, int yc, int rx, int ry, char s)
 }
 
 // plot a regular polygon with center (x,y), length l, n sides, using symbol s
-void screen::polygon(int x, int y, int n, int l, char s)
+void Screen::polygon(int x, int y, int n, int l, char s)
 {
     double * xx = new double [n];
     double * yy = new double [n];
@@ -232,7 +225,7 @@ void screen::polygon(int x, int y, int n, int l, char s)
 }
 
 // plot a line from (x0,y0) to (x1, y1) using symbol s
-void screen::line(int x0, int y0, int x1, int y1, char s)
+void Screen::line(int x0, int y0, int x1, int y1, char s)
 {
     if (x1 == x0)
     {
@@ -277,7 +270,4 @@ void screen::line(int x0, int y0, int x1, int y1, char s)
             for(double y = y1; y <= y0; y+=1)
                 plot((y - c)/m, y, s);
     }
-    }
-
-
-
+}

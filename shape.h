@@ -1,10 +1,11 @@
 #ifndef GEOMETRICSHAPES_SHAPE_H
 #define GEOMETRICSHAPES_SHAPE_H
+#include <iostream>
+#include "screen.h"
 //	point     $
 //	elliplse  *
 //	polygon   #
 //	line      -
-#include <iostream>
 
 class point{
 public:
@@ -16,6 +17,10 @@ public:
     int getY(){ return y;};
     char getSymbol(){ return symbol;};
     void setSymbol(char s){ this->symbol = s; }
+
+    virtual void draw(Screen & scr){
+        scr.point(x,y,'x');
+    }
 
 private:
     int x;
@@ -33,7 +38,9 @@ public:
     }
     int getXradius(){ return xRadius; }
     int getYradius(){ return yRadius; }
-
+    void  draw(Screen & scr) override {
+        scr.ellipse(getX(),getY(),xRadius,yRadius,'*');
+    }
 private:
     int xRadius;
     int yRadius;
@@ -42,14 +49,20 @@ private:
 
 class polygon : public point{
 public:
-    polygon(int x, int y, int n) : point(x,y){
+    polygon(int x, int y, int n, int l) : point(x,y){
         this->n = n;
+        this->l = l;
         setSymbol('#');
     }
     int getSides(){ return n; }
+    int getLength(){ return l; }
+    void  draw(Screen & scr) override {
+        scr.polygon(getX(),getY(),n,l,'#');
+    }
 
 private:
     int n;
+    int l;
 };
 
 class line : public point{
@@ -57,6 +70,9 @@ public:
     line(int x, int y, int x2, int y2) : point(x,y){
         this->x2 = x2;
         this->y2 = y2;
+    }
+    void draw(Screen & scr) override {
+        scr.line(getX(),getY(),x2,y2,'-');
     }
 private:
     int x2;
