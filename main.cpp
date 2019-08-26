@@ -1,19 +1,21 @@
 #include <iostream>
 #include "screen.h"
-#include "shape.h"
+#include "shape.cpp"
+#include "bunch.cpp"
 // main function
 int main()
 {
     Screen myscreen;
-    point p(15,2);
-    point g(15,6);
-    elipse e(13,3,5,5);
-    p.draw(myscreen);
-    g.draw(myscreen);
-    e.draw(myscreen);
-    polygon pol(-6,0,6,8);
-    pol.draw(myscreen);
-    //s.point(1,2,'o');
+    Bunch<point> points;
+    Bunch<elipse> elipses;
+    Bunch<polygon> polygons;
+    Bunch<line> lines;
 
+    point p(1,2);
+    point t(4,3);
+    points.push(p);
+    points.push(t);
     myscreen.display();
+     
+
 }
