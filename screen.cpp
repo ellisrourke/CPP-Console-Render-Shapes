@@ -1,6 +1,6 @@
 /* Written by M A H Newton on 25.08.2019 */
 
-#include <iostream>
+
 #include <cmath>
 #include <cstdlib>
 #include "screen.h"

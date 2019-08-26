@@ -1,3 +1,7 @@
+#ifndef ASS2_SHAPES_H
+#define ASS2_SHAPES_H
+#include <iostream>
+
 class screen
 {
 public:
@@ -31,3 +35,5 @@ private:
     int mWidth, mHeight;							// width and height
     char ** mBoard;									// 2d screen board
 };
+
+#endif //ASS2_SHAPES_H
