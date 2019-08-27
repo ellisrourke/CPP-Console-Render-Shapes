@@ -15,16 +15,10 @@ public:
 
     classType &operator[](int i){return list[i];}
 
-    void push(classType x){
+    void push(classType &x){
         items+=1;
         list[items - 1] = x;
-    };
-
-    classType pop(){
-        if(items <= 0)
-            return 0;
-        items -= 1;
-        return list[items];
+        //std::cout << this->items << std::endl;
     };
 
     classType nextPop(){
@@ -33,9 +27,15 @@ public:
 
     void display(){
         for(int i=0;i<items;i++){
-            std::cout << list[i].getX() << list[i].getY() << " ";
+            list[i].info();
         }
         std::cout << std::endl;
     }
+
+    //not working
+    /*void remove(){
+            items-=1;
+            delete list[items];
+    }*/
 
 };

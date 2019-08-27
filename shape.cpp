@@ -22,6 +22,12 @@ public:
         scr.point(x,y,'x');
     }
 
+    virtual void info(){
+        std::cout << "("  << getX() << ", " << getY() << ") ";
+    }
+    ~point(){ std::cout << "object deleted" << std::endl;
+
+    }
 private:
     int x;
     int y;
@@ -40,6 +46,10 @@ public:
     int getYradius(){ return yRadius; }
     void  draw(Screen & scr) override {
         scr.ellipse(getX(),getY(),xRadius,yRadius,'*');
+    }
+
+    void info() override {
+        std::cout << getX() << " " << getY() << " " << getXradius() << " " << getYradius() << " ";
     }
 private:
     int xRadius;
@@ -60,6 +70,10 @@ public:
         scr.polygon(getX(),getY(),n,l,'#');
     }
 
+    void info() override {
+        std::cout << getX() << " " << getY() << " " << getSides() << " " << getLength() << " ";
+    }
+
 private:
     int n;
     int l;
@@ -71,8 +85,14 @@ public:
         this->x2 = x2;
         this->y2 = y2;
     }
+    int getx2(){ return x2; }
+    int gety2(){ return y2; }
     void draw(Screen & scr) override {
         scr.line(getX(),getY(),x2,y2,'-');
+    }
+
+    void info() override {
+        std::cout << getX() << " " << getY() << " " << getx2() << " " << gety2() << " ";
     }
 private:
     int x2;
