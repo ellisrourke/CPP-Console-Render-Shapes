@@ -9,7 +9,7 @@
 
 class point{
 public:
-    point(int x,int y){
+    explicit point(int x=0,int y=0){
         this->x = x;
         this->y = y;
     }
@@ -31,7 +31,7 @@ private:
 
 class elipse : public point{
 public:
-    elipse(int x, int y, int xRadius,int yRadius) : point(x,y){
+    explicit elipse(int x=0, int y=0, int xRadius=0,int yRadius=0) : point(x,y){
         this->xRadius = xRadius;
         this->yRadius = yRadius;
         setSymbol('*');
@@ -49,7 +49,7 @@ private:
 
 class polygon : public point{
 public:
-    polygon(int x, int y, int n, int l) : point(x,y){
+    explicit polygon(int x=0, int y=0, int n=0, int l=0) : point(x,y){
         this->n = n;
         this->l = l;
         setSymbol('#');
@@ -67,7 +67,7 @@ private:
 
 class line : public point{
 public:
-    line(int x, int y, int x2, int y2) : point(x,y){
+    explicit line(int x=0, int y=0, int x2=0, int y2=0) : point(x,y){
         this->x2 = x2;
         this->y2 = y2;
     }
