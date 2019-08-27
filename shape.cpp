@@ -49,7 +49,7 @@ public:
     }
 
     void info() override {
-        std::cout << getX() << " " << getY() << " " << getXradius() << " " << getYradius() << " ";
+        std::cout << "(" << getX() << ", " << getY() << ", " << getXradius() << ", " << getYradius() << ") ";
     }
 private:
     int xRadius;
@@ -71,7 +71,7 @@ public:
     }
 
     void info() override {
-        std::cout << getX() << " " << getY() << " " << getSides() << " " << getLength() << " ";
+        std::cout << "(" << getX() << ", " << getY() << ", " << getSides() << ", " << getLength() << ") ";
     }
 
 private:
@@ -92,7 +92,7 @@ public:
     }
 
     void info() override {
-        std::cout << getX() << " " << getY() << " " << getx2() << " " << gety2() << " ";
+        std::cout << "(" << getX() << ", " << getY() << ", " << getx2() << ", " << gety2() << ") ";
     }
 private:
     int x2;
