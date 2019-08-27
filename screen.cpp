@@ -5,11 +5,10 @@
 #include "screen.h"
 
 // default constructor
-Screen::Screen() : mWidth(ratio * dim * 2 + 1), mHeight(dim * 2 + 1)
-{
-    mBoard = new char * [mHeight];
-    for(int j = 0; j < mHeight; ++j)
-        mBoard[j] = new char [mWidth]();
+Screen::Screen() : mWidth(ratio * dim * 2 + 1), mHeight(dim * 2 + 1) {
+    mBoard = new char *[mHeight];
+    for (int j = 0; j < mHeight; ++j)
+        mBoard[j] = new char[mWidth]();
 }
 
 // destructor
@@ -119,6 +118,7 @@ void Screen::clear()
     for(int j = 0; j < mHeight; ++j)
         for(int i = 0; i < mWidth; ++i)
             mBoard[j][i] = 0;
+    this->axes('+');
 }
 
 // show the axes using symbol s

@@ -16,7 +16,9 @@ int main() {
     while (selection != -1) {
         if (selection == 0 or selection == 5) {
             std::cout << "1: draw point\n2: draw elipse\n3: draw polygon\n4: draw line\n";
-            std::cout << "5: display current shapes\n6: remove from\n7: display inputed shapes" << std::endl;
+            std::cout << "5: paint all shapes *redundant, use (7)\n6: remove from\n7: display inputed shapes\n";
+            std::cout << "8: paint shape\n9: clear screen\n";
+
         }
 
         std::cout << "Select operation: ";
@@ -76,20 +78,10 @@ int main() {
                 break;
             }
             case 5: { // draw and display all bunches
-                for (int i = 0; i < points.items; i++) {
-                    points.list[i].draw(myscreen);
-                }
-                for (int i = i = 0; i < elipses.items; i++) {
-                    elipses.list[i].draw(myscreen);
-                }
-                for (int i = i = 0; i < polygons.items; i++) {
-                    polygons.list[i].draw(myscreen);
-                }
-                for (int i = i = 0; i < lines.items; i++) {
-                    lines.list[i].draw(myscreen);
-                }
-
-
+                for (int i = 0; i < points.items; i++) {points.list[i].draw(myscreen);}
+                for (int i = i = 0; i < elipses.items; i++) {elipses.list[i].draw(myscreen);}
+                for (int i = i = 0; i < polygons.items; i++) {polygons.list[i].draw(myscreen);}
+                for (int i = i = 0; i < lines.items; i++) {lines.list[i].draw(myscreen);}
                 myscreen.display();
                 break;
             }
@@ -97,14 +89,14 @@ int main() {
                 std::cout << "| 1 points | 2 elipses | 3 polygons | 4 lines | -> ";
                 int rem;
                 std::cin >> rem;
-                /*switch(rem){
+                switch(rem){
                     case 1 : points.remove(); break;
                     case 2 : elipses.remove(); break;
                     case 3 : polygons.remove(); break;
                     case 4 : lines.remove(); break;
                     default: std::cerr << "no bunch selected" << std::endl;
-
-                }*/
+                }
+                myscreen.clear();
             }
             case 7 : { //show all bunch info
                 std::cout << "points: ";
@@ -120,92 +112,58 @@ int main() {
             case 8 : {//paint item (given index)from bunch or all bunches)
                 std::cout << "| 1 points | 2 elipses | 3 polygons | 4 lines | -1 all |  -> ";
                 int bunchSelect;
-                int index;
+                int index = 0;
                 std::cin >> bunchSelect;
-                std::cout << "select index (-1 for all) -> ";
-                std::cin >> index;
-                if (index == -1) {
-                    switch (bunchSelect) {
-                        case 1: {
-                            for (int i = 0; i < points.items; i++) {
-                                points.list[i].draw(myscreen);
-                            }
-                            break;
-                        }
-                        case 2: {
-                            for (int i = i = 0; i < elipses.items; i++) {
-                                elipses.list[i].draw(myscreen);
-                            }
-                            break;
-                        }
-                        case 3: {
-                            for (int i = i = 0; i < polygons.items; i++) {
-                                polygons.list[i].draw(myscreen);
-                            }
-                            break;
-                        }
-                        case 4: {
-                            for (int i = i = 0; i < lines.items; i++) {
-                                lines.list[i].draw(myscreen);
-                            }
-                            break;
-                        }
-                        case -1:{
-                            for (int i = 0; i < points.items; i++) {
-                                points.list[i].draw(myscreen);
-                            }
-                            for (int i = i = 0; i < elipses.items; i++) {
-                                elipses.list[i].draw(myscreen);
-                            }
-                            for (int i = i = 0; i < polygons.items; i++) {
-                                polygons.list[i].draw(myscreen);
-                            }
-                            for (int i = i = 0; i < lines.items; i++) {
-                                lines.list[i].draw(myscreen);
-                            }
-                        }
-                        default: {
-                        }
-                    }
-                } else {
-                    switch (bunchSelect) {
-                        case 1 : {
-                            points[index].draw(myscreen);
-                            break;
-                        }
-                        case 2 : {
-                            elipses[index].draw(myscreen);
-                            break;
-                        }
-                        case 3 : {
-                            polygons[index].draw(myscreen);
-                            break;
-                        }
-                        case 4 : {
-                            lines[index].draw(myscreen);
-                            break;
-                        }
-                        case -1 : {
-                            points.list[index].draw(myscreen);
-                            elipses.list[index].draw(myscreen);
-                            polygons.list[index].draw(myscreen);
-                            lines.list[index].draw(myscreen);
-                            break;
-                        }
-                        default: {
-                        }
-                    }
+                if(bunchSelect != -1) {
+                    std::cout << "select index (-1 for all) -> ";
+                    std::cin >> index;
                 }
+                    switch(bunchSelect) {
+                        case -1:
+                            for (int i = 0; i < points.items; i++) { points.list[i].draw(myscreen); }
+                            for (int i = i = 0; i < elipses.items; i++) { elipses.list[i].draw(myscreen); }
+                            for (int i = i = 0; i < polygons.items; i++) { polygons.list[i].draw(myscreen); }
+                            for (int i = i = 0; i < lines.items; i++) { lines.list[i].draw(myscreen); }
+                            break;
+                        case 1 :
+                            if(index == -1){
+                                for (int i = 0; i < points.items; i++) { points.list[i].draw(myscreen); }
+                            } else {
+                                points.list[index].draw(myscreen);
+                            }
+                        case 2 :
+                            if(index == -1){
+                                for (int i = 0; i < elipses.items; i++) { elipses.list[i].draw(myscreen); }
+                            } else {
+                                elipses.list[index].draw(myscreen);
+                            }
+                        case 3 :
+                            if(index == -1){
+                                for (int i = 0; i < polygons.items; i++) { polygons.list[i].draw(myscreen); }
+                            } else {
+                                polygons.list[index].draw(myscreen);
+                            }
+                        case 4 :
+                            if(index == -1){
+                                for (int i = 0; i < lines.items; i++) { lines.list[i].draw(myscreen); }
+                            } else {
+                                lines.list[index].draw(myscreen);
+                            }
+                    }
                 myscreen.display();
-
-                case -1: {
-                    break;
-                }
-                default:
-                    std::cout << "default" << std::endl;
+                break;
+            }//END OF CASE 8
+            case 9 : {
+                myscreen.clear();
+                myscreen.display();
+                break;
+            }
+            default:
+                std::cout << "default" << std::endl;
+                break;
             }
 
         }
 
     }
-}
+

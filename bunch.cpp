@@ -33,9 +33,9 @@ public:
     }
 
     //not working
-    /*void remove(){
+    void remove(){
             items-=1;
-            delete list[items];
-    }*/
+            items[list] = classType();
+    }
 
 };
