@@ -2,7 +2,6 @@
 #include "screen.h"
 #include "shape.cpp"
 #include "bunch.cpp"
-// main function
 int main() {
     Screen myscreen;
     myscreen.axes('+');
