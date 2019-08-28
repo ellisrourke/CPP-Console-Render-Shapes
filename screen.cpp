@@ -1,9 +1,7 @@
 //
 // Created by caleb on 26/8/19.
 //
-
 #include "screen.h"
-
 // default constructor
 Screen::Screen() : mWidth(ratio * dim * 2 + 1), mHeight(dim * 2 + 1) {
     mBoard = new char *[mHeight];

@@ -93,7 +93,7 @@ int main() {
                     case 2 : elipses.remove(); break;
                     case 3 : polygons.remove(); break;
                     case 4 : lines.remove(); break;
-                    default: std::cerr << "no bunch selected" << std::endl;
+                    default: std::cerr << "no bunch selected" << std::endl; break;
                 }
                 myscreen.clear();
             }
@@ -130,24 +130,28 @@ int main() {
                             } else {
                                 points.list[index].draw(myscreen);
                             }
+                            break;
                         case 2 :
                             if(index == -1){
                                 for (int i = 0; i < elipses.items; i++) { elipses.list[i].draw(myscreen); }
                             } else {
                                 elipses.list[index].draw(myscreen);
                             }
+                            break;
                         case 3 :
                             if(index == -1){
                                 for (int i = 0; i < polygons.items; i++) { polygons.list[i].draw(myscreen); }
                             } else {
                                 polygons.list[index].draw(myscreen);
                             }
+                            break;
                         case 4 :
                             if(index == -1){
                                 for (int i = 0; i < lines.items; i++) { lines.list[i].draw(myscreen); }
                             } else {
                                 lines.list[index].draw(myscreen);
                             }
+                            break;
                     }
                 myscreen.display();
                 break;
