@@ -8,7 +8,7 @@ public:
 
     Bunch(){
         items = 0;
-        list = new classType[cap];
+        //list = new classType[cap];
     }
 
 
