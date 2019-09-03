@@ -8,16 +8,16 @@ public:
 
     Bunch(){
         items = 0;
-        //list = new classType[cap];
+        list = new classType[cap];
     }
 
 
 
     classType &operator[](int i){return list[i];}
 
-    void push(classType &x){
+    void push(classType &cl){
         items+=1;
-        list[items - 1] = x;
+        list[items - 1] = cl;
         //std::cout << this->items << std::endl;
     };
 
@@ -27,9 +27,8 @@ public:
 
     void display(){
         for(int i=0;i<items;i++){
-            list[i].info();
+            std::cout << list[i].info() << std::endl;
         }
-        std::cout << std::endl;
     }
 
     //not working

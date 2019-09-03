@@ -3,6 +3,7 @@
 //	polygon   #
 //	line      -
 #include "screen.h"
+#include <sstream>
 class point{
 public:
     explicit point(int x=0,int y=0){
@@ -39,17 +40,20 @@ public:
 
     int getX(){ return x;};
     int getY(){ return y;};
-    char getSymbol(){ return symbol;};
-    void setSymbol(char s){ this->symbol = s; }
     void draw(Screen & scr){
         scr.point(x,y,'x');
     }
-    void info(){std::cout << "("  << getX() << ", " << getY() << ") ";}
-
+    std::string getType(){ return type;};
+    std::string info(){
+        std::stringstream data;
+        data<< getType() << " " << getX() << " " << getY();
+        std::string out = data.str();
+        return out;
+    }
 private:
     int x;
     int y;
-    char symbol = '$';
+    std::string type = "point";
 
 };
 
@@ -60,7 +64,6 @@ public:
         this->y = y;
         this->xRadius = xRadius;
         this->yRadius = yRadius;
-        setSymbol('*');
     }
     //copy constructor
     elipse(elipse const & that) : elipse(that.x, that.y, that.xRadius, that.yRadius){}
@@ -105,15 +108,19 @@ public:
     int getY(){ return y;};
     int getXradius(){ return xRadius; }
     int getYradius(){ return yRadius; }
-    char getSymbol(){ return symbol;};
-    void setSymbol(char s){ this->symbol = s; }
     void  draw(Screen & scr){ scr.ellipse(getX(),getY(),xRadius,yRadius,'*'); }
-    void info(){ std::cout << "(" << getX() << ", " << getY() << ", " << getXradius() << ", " << getYradius() << ") "; }
+    std::string info() {
+        std::stringstream data;
+        data<< getType() << " " << getX() << " " << getY() << " " << getXradius() << " " << getYradius();
+        std::string out = data.str();
+        return out;
+    }
+    std::string getType() { return type;}
 private:
     int x,y;
     int xRadius;
     int yRadius;
-    char symbol = '*';
+    std::string type = "elipse";
 };
 
 class polygon{
@@ -123,7 +130,6 @@ public:
         this->y = y;
         this->n = n;
         this->l = l;
-        setSymbol('#');
     }
     //copy constructor
     polygon(polygon const & that) : polygon(that.x, that.y, that.n, that.l){}
@@ -169,12 +175,17 @@ public:
     int getSides(){ return n; }
     int getLength(){ return l; }
     void  draw(Screen & scr)  { scr.polygon(getX(),getY(),n,l,'#'); }
-    void setSymbol(char s){ this->symbol = s; }
-    void info()  { std::cout << "(" << getX() << ", " << getY() << ", " << getSides() << ", " << getLength() << ") "; }
+    std::string info(){
+        std::stringstream data;
+        data<< getType() << " " << getX() << " " << getY() << " " << getSides() << " " << getLength();
+        std::string out = data.str();
+        return out;
+    }
+    std::string getType() { return type;}
 
 private:
     int x,y,n,l;
-    char symbol = '#';
+    std::string type = "polygon";
 };
 
 class line{
@@ -231,7 +242,14 @@ public:
     int gety2(){ return y2; }
     void draw(Screen & scr) { scr.line(getX(),getY(),x2,y2,'-'); }
 
-    void info(){ std::cout << "(" << getX() << ", " << getY() << ", " << getx2() << ", " << gety2() << ") "; }
+    std::string info() {
+        std::stringstream data;
+        data << getType()  << " " << getX() << " " << getY() << " " << getx2() << " " << gety2();
+        std::string out = data.str();
+        return out;
+    }
+    std::string getType(){ return type;}
 private:
     int x,y,x2,y2;
+    std::string type = "line";
 };

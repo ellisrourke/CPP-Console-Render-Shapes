@@ -1,7 +1,9 @@
 #include <iostream>
+#include <fstream>
 #include "screen.h"
 #include "shape.cpp"
 #include "bunch.cpp"
+
 int main() {
     Screen myscreen;
     myscreen.axes('+');
@@ -15,9 +17,8 @@ int main() {
     while (selection != -1) {
         if (selection == 0 or selection == 5) {
             std::cout << "1: draw point\n2: draw elipse\n3: draw polygon\n4: draw line\n";
-            std::cout << "5: paint all shapes *redundant, use (7)\n6: remove from\n7: display inputed shapes\n";
-            std::cout << "8: paint shape\n9: clear screen\n";
-
+            std::cout << "6: remove from\n7: display inputed shapes\n";
+            std::cout << "8: paint shape\n9: clear screen\n10: save to file\n11: load from file\n";
         }
 
         std::cout << "Select operation: ";
@@ -98,13 +99,13 @@ int main() {
                 myscreen.clear();
             }
             case 7 : { //show all bunch info
-                std::cout << "points: ";
+
                 points.display();
-                std::cout << "elipses: ";
+
                 elipses.display();
-                std::cout << "polygons: ";
+
                 polygons.display();
-                std::cout << "lines: ";
+
                 lines.display();
                 break;
             }
@@ -159,6 +160,49 @@ int main() {
             case 9 : {
                 myscreen.clear();
                 myscreen.display();
+                break;
+            } case 10 : {//save to file
+                std::ofstream outFile;
+                std::string filename;
+                std::cout << "input file name: ";
+                std::cin >> filename;
+                outFile.open("shapeTextFiles/" + filename);
+
+                for (int i = 0; i < points.items; i++) { outFile << points[i].info() << std::endl; }
+                for (int i = 0; i < elipses.items; i++) { outFile << elipses[i].info() << std::endl; }
+                for (int i = 0; i < polygons.items; i++) { outFile << polygons[i].info() << std::endl; }
+                for (int i = 0; i < lines.items; i++) { outFile << lines[i].info() << std::endl; }
+                break;
+            } case 11 : {
+                std::string filename;
+                std::cout << "enter file name: ";
+                std::cin >> filename;
+                std::ifstream infile;
+                std::string inLine;
+                infile.open("shapeTextFiles/" + filename);
+
+                if (!infile.is_open()) {
+                    std::cerr << "File does not exist, loading data failed!" << std::endl;
+                    break;
+                }
+
+                while (!infile.eof()) {
+                    // Read a Line from File
+                    getline(infile, inLine, ' ');
+                    //std::cout << inLine << std::endl;
+                    if (inLine.find("point") != std::string::npos) {
+                        int x,y;
+                        infile >> x >> y;
+                        point p(x,y);
+                        points.push(p);
+                    } else {
+                        int x,y,a,b;
+                        infile >> x >> y >> a >> b;
+                        if (inLine.find("elipse") != std::string::npos) {elipse e(x,y,a,b); elipses.push(e);}
+                        if (inLine.find("polygon") != std::string::npos) {polygon pol(x,y,a,b); polygons.push(pol);}
+                        if (inLine.find("line") != std::string::npos) {line l(x,y,a,b); lines.push(l);}
+                    }
+                }
                 break;
             }
             default:
